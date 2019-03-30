@@ -37,9 +37,9 @@ class DumbellTopo( Topo ):
 
       s1,s2 = [ self.addSwitch ( s ) for s in ('s1', 's2') ]
 
-      self.addLink( s1, r1, intfName2='r1-eth1', params2={ 'ip' : IP1} )
+      self.addLink( s1, r1 )
 
-      self.addLink( s2, r2, intfName2='r2-eth1', params2={ 'ip' : IP2} )
+      self.addLink( s2, r2 )
 
 
       h1 = self.addHost( 'h1', ip='192.168.1.100/24', defaultRoute='via 192.168.1.1' )
@@ -58,9 +58,7 @@ def run():
    topo=DumbellTopo()
    net = Mininet ( topo=topo )
    net.start()
-   info( '*** Routing Table on Router:\n' )
-   info( net[ 'r1' ].cmd( 'route' ) )
-   info( net[ 'r2' ].cmd( 'route ') )
+   net.pingAll()
    CLI( net )
    net.stop()
 
