@@ -27,25 +27,25 @@ class DumbellTopo( Topo ):
 
       IP1 = '192.168.1.1/24'   # Ip Address for r0-eth1
 
-      IP2 = '192.168.2.1/24'   # IP address for r1-eth1
+      IP2 = '192.1.1.1/12'   # IP address for r1-eth1
 
-      r1 = self.addNode( 'r1', cls=LinuxRouter, ip=IP1 )
-      r2 = self.addNode( 'r2', cls=LinuxRouter, ip=IP2 )
+      router_one = self.addNode( 'r0', cls=LinuxRouter, ip=IP1 )
+      router_two = self.addNode( 'r1', cls=LinuxRouter, ip=IP2 )
 
-      self.addLink( r1, r2 )
-      #self.addLink(r1, r2, intfName1='r1-eth1', intfName2='r2-eth1')
+      #self.addLink( router_one, router_two )
+      #self.addLink(router_one, router_two, intfName1='r0-eth1', intfName2='r1-eth1')
 
       s1,s2 = [ self.addSwitch ( s ) for s in ('s1', 's2') ]
 
-      self.addLink( s1, r1 )
+      self.addLink( s1, router_one )
 
-      self.addLink( s2, r2 )
+      self.addLink( s2, router_two )
 
 
       h1 = self.addHost( 'h1', ip='192.168.1.100/24', defaultRoute='via 192.168.1.1' )
       h2 = self.addHost( 'h2', ip='192.168.1.101/24', defaultRoute='via 192.168.1.1' )
-      h3 = self.addHost( 'h3', ip='192.168.2.100/24', defaultRoute='via 192.168.2.1' )
-      h4 = self.addHost( 'h4', ip='192.168.2.101/24', defaultRoute='via 192.168.2.1' )
+      h3 = self.addHost( 'h3', ip='192.1.1.99/12', defaultRoute='via 192.1.1.1' )
+      h4 = self.addHost( 'h4', ip='192.1.1.98/12', defaultRoute='via 192.1.1.1' )
 
       self.addLink(h1, s1)
       self.addLink(h2, s1)
