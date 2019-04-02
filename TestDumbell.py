@@ -55,6 +55,11 @@ def run():
     net.pingAll()
     CLI( net )
     net.stop()
+
+if __name__ == '__main__':
+    setLogLevel( 'info' )
+    run()
+
 #*** Ping: testing ping reachability
 #h1 -> h2 X X r1 X
 #h2 -> h1 X X r1 X
